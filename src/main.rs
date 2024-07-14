@@ -1,5 +1,5 @@
-use std::fs;
-use std::path::Path;
+use std::{env, fs};
+use std::path::{Path, PathBuf};
 use log::{debug, error, info, warn};
 use simple_logger::SimpleLogger;
 use std::str;
@@ -59,8 +59,13 @@ fn main() {
         .unwrap();
 
     info!("Autopush Standalone version {}", env!("CARGO_PKG_VERSION"));
+    let mut home_dir = dirs::home_dir().unwrap_or(PathBuf::from("/"));
+    home_dir.push("Projects");
+
     let source = if Path::new("/Volumes/Projects").exists() {
         "/Volumes/Projects"
+    } else if home_dir.exists() {
+        home_dir.to_str().unwrap_or("/")
     } else {
         "."
     };

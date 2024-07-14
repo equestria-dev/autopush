@@ -4,5 +4,6 @@ version = "2.0.0"
 edition = "2021"
 
 [dependencies]
+dirs = "5.0.1"
 log = "0.4.21"
 simple_logger = "5.0.0"
