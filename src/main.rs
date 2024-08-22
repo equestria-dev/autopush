@@ -3,11 +3,11 @@ use std::path::{Path, PathBuf};
 use log::{debug, error, info, warn};
 use simple_logger::SimpleLogger;
 use std::str;
-use autopush::{file_is_project, has_changes, make_commit, push_project, track_changes};
+use repository_manager::{file_is_project, has_changes, make_commit, push_project, track_changes};
 
-use autopush::error::AutopushError;
+use repository_manager::error::RMError;
 
-fn run(source: &str) -> Result<(), AutopushError> {
+fn run(source: &str) -> Result<(), RMError> {
     let directory = fs::read_dir(&source)?;
 
     for project in directory {
@@ -58,7 +58,7 @@ fn main() {
         .init()
         .unwrap();
 
-    info!("Autopush Standalone version {}", env!("CARGO_PKG_VERSION"));
+    info!("Floofi Repository Manager version {}", env!("CARGO_PKG_VERSION"));
     let mut home_dir = dirs::home_dir().unwrap_or(PathBuf::from("/"));
     home_dir.push("Projects");
 
@@ -76,6 +76,6 @@ fn main() {
         error!("An error has occurred: {err:?}. Unable to continue.");
     } else {
         info!("------------------------------------");
-        info!("Autopush has completed successfully.");
+        info!("Repository Manager has completed successfully.");
     }
 }
