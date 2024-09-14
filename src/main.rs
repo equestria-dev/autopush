@@ -64,6 +64,8 @@ fn main() {
 
     let source = if Path::new("/Volumes/Projects").exists() {
         "/Volumes/Projects"
+    } else if Path::new("/data").exists() {
+        "/data"
     } else if home_dir.exists() {
         home_dir.to_str().unwrap_or("/")
     } else {
